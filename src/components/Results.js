@@ -4,7 +4,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import CardItem from './cards/CardItem';
 import Topbar from './Topbar';
-import SectionHeader from './typo/SectionHeader';
 const backgroundShape = require('../images/shape.svg');
 
 const styles = theme => ({
@@ -15,7 +14,7 @@ const styles = theme => ({
     background: `url(${backgroundShape}) no-repeat`,
     backgroundSize: 'cover',
     backgroundPosition: '0 400px',
-    marginTop: 20,
+    marginTop: 200,
     padding: 20,
     paddingBottom: 200
   },
@@ -24,7 +23,7 @@ const styles = theme => ({
   }
 })
 
-class Cards extends Component {
+class Results extends Component {
 
   render() {
     const { classes } = this.props;
@@ -38,7 +37,7 @@ class Cards extends Component {
           <Grid container justify="center"> 
             <Grid spacing={10} alignItems="center" justify="center" container className={classes.grid}>
               <Grid item xs={12}>
-                <SectionHeader title="Cards" subtitle="One page with a list of a collection" />
+                {/* <SectionHeader   /> */}
                 <CardItem />
               </Grid>
             </Grid>
@@ -49,4 +48,4 @@ class Cards extends Component {
   }
 }
 
-export default withStyles(styles)(Cards);
+export default withStyles(styles)(Results);

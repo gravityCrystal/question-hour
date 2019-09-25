@@ -6,9 +6,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-// import InstructionDialog from './dialogs/InstructionDialog';
-// import SwipeDialog from './dialogs/SwipeDialog';
-
 import Topbar from './Topbar';
 
 const backgroundShape = require('../images/shape.svg');
@@ -21,7 +18,7 @@ const styles = theme => ({
     background: `url(${backgroundShape}) no-repeat`,
     backgroundSize: 'cover',
     backgroundPosition: '0 400px',
-    paddingBottom: 200
+    paddingTop: 150
   },
   grid: {
     width: 1200,
@@ -99,22 +96,6 @@ class Main extends Component {
 
   componentDidMount() { }
 
-  openDialog = (event) => {
-    this.setState({ learnMoredialog: true });
-  }
-
-  dialogClose = (event) => {
-    this.setState({ learnMoredialog: false });
-  }
-
-  openGetStartedDialog = (event) => {
-    this.setState({ getStartedDialog: true });
-  }
-
-  closeGetStartedDialog = (event) => {
-    this.setState({ getStartedDialog: false });
-  }
-
   render() {
     const { classes } = this.props;
     return (
@@ -128,16 +109,16 @@ class Main extends Component {
                 <Paper className={classes.paper}>
                   <div className={classes.box}>
                     <Typography style={{ textTransform: 'uppercase', display: 'flex', justifyContent: 'center' }} color='secondary' gutterBottom>
-                      First title
+                     Welcome to Question Hour
                     </Typography>
-                    <Typography style={{ textTransform: 'uppercase', display: 'flex', justifyContent: 'center' }} variant="body2" gutterBottom>
-                      A first title style <br /> with two lines
+                    <Typography style={{ display: 'flex', justifyContent: 'center' }} variant="body2" gutterBottom>
+                     Click to start test
                     </Typography>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Link to='/wizard' className={classes.link}>
+                    <Link to='/dashboard' className={classes.link}>
                       <Button color='primary' variant="contained" className={classes.actionButtom}>
-                        Learn more
+                     Start Test
                     </Button>
                     </Link>
 
@@ -146,14 +127,7 @@ class Main extends Component {
               </Grid>
             </Grid>
           </Grid>
-          {/* <SwipeDialog
-            open={this.state.learnMoredialog}
-            onClose={this.dialogClose} />
-          <InstructionDialog
-            open={this.state.getStartedDialog}
-            onClose={this.closeGetStartedDialog}
-          /> */}
-        </div>
+       </div>
       </React.Fragment>
     )
   }

@@ -79,12 +79,7 @@ class CardItem extends Component {
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <div className={classes.itemContainer}>
-            <div className={classes.avatarContainer}>
-              <Avatar className={classes.avatar}>
-                <DescriptionIcon />
-              </Avatar>
-            </div>
-            <div className={classes.baseline}>
+           <div className={classes.baseline}>
               <div className={classes.inline}>
                 <Typography style={{ textTransform: 'uppercase' }} color='secondary' gutterBottom>
                   Months
