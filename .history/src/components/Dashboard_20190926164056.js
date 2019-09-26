@@ -16,13 +16,11 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fade from '@material-ui/core/Fade';
 import Topbar from './Topbar';
-import ReactRadioButtonGroup from 'react-radio-button-group';
-
 
 const backgroundShape = require('../images/shape.svg');
 
-// const numeral = require('numeral');
-// numeral.defaultFormat('0,000');
+const numeral = require('numeral');
+numeral.defaultFormat('0,000');
 
 const styles = theme => ({
   root: {

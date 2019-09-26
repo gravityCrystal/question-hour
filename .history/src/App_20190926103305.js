@@ -39,7 +39,7 @@ class App extends Component {
   }
 }
 const mapState = state => ({
-  articles: state.articles,
+  articles: state.posts,
 });
 const mapDispatch = dispatch => ({
   addArticle: (payload) => dispatch(addArticle(payload)),

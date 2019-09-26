@@ -16,13 +16,11 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fade from '@material-ui/core/Fade';
 import Topbar from './Topbar';
-import ReactRadioButtonGroup from 'react-radio-button-group';
-
 
 const backgroundShape = require('../images/shape.svg');
 
-// const numeral = require('numeral');
-// numeral.defaultFormat('0,000');
+const numeral = require('numeral');
+numeral.defaultFormat('0,000');
 
 const styles = theme => ({
   root: {
@@ -115,19 +113,15 @@ class Dashboard extends Component {
       questions: [],
       answeredQuestions: []
     };
-
-
+  
+  
   }
   componentDidMount() {
-    this.callQuestionApi();
-  }
-
-  callQuestionApi() {
     fetch("https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean")
       .then(res => res.json())
       .then(
       (result) => {
-        console.log(JSON.stringify(result.results), 0, null);
+        // console.log(result.results);
         this.setState({
           questions: result.results,
           loading: false,
@@ -143,6 +137,10 @@ class Dashboard extends Component {
         });
       }
       )
+  }
+
+  callApi(){
+
   }
   handleChange = event => {
     const [setValue] = React.useState('Yes');
@@ -173,7 +171,22 @@ class Dashboard extends Component {
   //   // this.setState({ [event.target.name]: event.target.value }, console.log(this.state));
   // };
 
+  handleTerms = event => {
+    this.setState({ termsChecked: event.target.checked });
+  };
 
+  stepActions() {
+    if (this.state.activeStep === 3) {
+      return 'Accept';
+    }
+    if (this.state.activeStep === 4) {
+      return 'Send';
+    }
+    if (this.state.activeStep === 5) {
+      return 'Done';
+    }
+    return 'Next';
+  }
 
   goToDashboard = event => {
     const queryString = this.props.location.search
@@ -183,7 +196,9 @@ class Dashboard extends Component {
       search: queryString
     })
   }
+  handleChange() {
 
+  }
   render() {
 
     const { classes } = this.props;
@@ -221,8 +236,6 @@ class Dashboard extends Component {
                   >
                     <CircularProgress style={{ marginBottom: 32, width: 100, height: 100 }} />
                   </Fade>
-                  <ReactRadioButtonGroup name="number" options={["One", "Two", "Three"]} value="Three" />
-
                   {questions.map((k, v) => {
                     return (
                       <div className={classes.bigContainer} key={v + 1}>

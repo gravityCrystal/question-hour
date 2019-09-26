@@ -16,13 +16,11 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fade from '@material-ui/core/Fade';
 import Topbar from './Topbar';
-import ReactRadioButtonGroup from 'react-radio-button-group';
-
 
 const backgroundShape = require('../images/shape.svg');
 
-// const numeral = require('numeral');
-// numeral.defaultFormat('0,000');
+const numeral = require('numeral');
+numeral.defaultFormat('0,000');
 
 const styles = theme => ({
   root: {
@@ -127,7 +125,7 @@ class Dashboard extends Component {
       .then(res => res.json())
       .then(
       (result) => {
-        console.log(JSON.stringify(result.results), 0, null);
+        console.log(JSON.stringifyresult.results);
         this.setState({
           questions: result.results,
           loading: false,
@@ -221,8 +219,6 @@ class Dashboard extends Component {
                   >
                     <CircularProgress style={{ marginBottom: 32, width: 100, height: 100 }} />
                   </Fade>
-                  <ReactRadioButtonGroup name="number" options={["One", "Two", "Three"]} value="Three" />
-
                   {questions.map((k, v) => {
                     return (
                       <div className={classes.bigContainer} key={v + 1}>

@@ -16,13 +16,11 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fade from '@material-ui/core/Fade';
 import Topbar from './Topbar';
-import ReactRadioButtonGroup from 'react-radio-button-group';
-
 
 const backgroundShape = require('../images/shape.svg');
 
-// const numeral = require('numeral');
-// numeral.defaultFormat('0,000');
+const numeral = require('numeral');
+numeral.defaultFormat('0,000');
 
 const styles = theme => ({
   root: {
@@ -127,7 +125,7 @@ class Dashboard extends Component {
       .then(res => res.json())
       .then(
       (result) => {
-        console.log(JSON.stringify(result.results), 0, null);
+        // console.log(result.results);
         this.setState({
           questions: result.results,
           loading: false,
@@ -173,85 +171,86 @@ class Dashboard extends Component {
   //   // this.setState({ [event.target.name]: event.target.value }, console.log(this.state));
   // };
 
+  handleTerms = event => {
 
 
-  goToDashboard = event => {
-    const queryString = this.props.location.search
+    goToDashboard = event => {
+      const queryString = this.props.location.search
 
-    this.props.history.push({
-      pathname: '/dashboard',
-      search: queryString
-    })
-  }
+      this.props.history.push({
+        pathname: '/dashboard',
+        search: queryString
+      })
+    }
+    handleChange() {
 
-  render() {
+    }
+    render() {
 
-    const { classes } = this.props;
-    const { questions, loading } = this.state;
-    const steps = getSteps();
-    const { activeStep } = this.state;
+      const { classes } = this.props;
+      const { questions, loading } = this.state;
+      const steps = getSteps();
+      const { activeStep } = this.state;
 
-    return (
-      <React.Fragment>
-        <CssBaseline />
-        <Topbar />
-        <div className={classes.root}>
-          <Grid container justify="center">
-            <Grid spacing={10} alignItems="center" justify="center" container className={classes.grid}>
-              <Grid item xs={12}>
-                <Back />
-                <div className={classes.stepContainer}>
-                  <div className={classes.bigContainer}>
-                    <Stepper classes={{ root: classes.stepper }} activeStep={activeStep} alternativeLabel>
-                      {steps.map(label => {
-                        return (
-                          <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
-                          </Step>
-                        );
-                      })}
-                    </Stepper>
-                  </div>
-                  <Fade
-                    in={loading}
-                    style={{
-                      transitionDelay: loading ? '800ms' : '0ms',
-                    }}
-                    unmountOnExit
-                  >
-                    <CircularProgress style={{ marginBottom: 32, width: 100, height: 100 }} />
-                  </Fade>
-                  <ReactRadioButtonGroup name="number" options={["One", "Two", "Three"]} value="Three" />
-
-                  {questions.map((k, v) => {
-                    return (
-                      <div className={classes.bigContainer} key={v + 1}>
-                        <Paper className={classes.paper}>
-                          <div className={classes.topInfo}>
-                            <div>
-                              <Typography variant="subtitle1" style={{ fontWeight: 'bold' }} gutterBottom>
-                                {v + 1}.  {ReactHtmlParser(k.question)}
-                              </Typography>
-                              {/* <Typography variant="body1" gutterBottom> */}
-                              <RadioGroup aria-label="gender" name="'radio'+v" value={this.state.value} onClick={this.handleChange}>
-                                <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
-                                <FormControlLabel value="No" control={<Radio />} label="No" />
-                              </RadioGroup>
-                              {/* </Typography> */}
+      return (
+        <React.Fragment>
+          <CssBaseline />
+          <Topbar />
+          <div className={classes.root}>
+            <Grid container justify="center">
+              <Grid spacing={10} alignItems="center" justify="center" container className={classes.grid}>
+                <Grid item xs={12}>
+                  <Back />
+                  <div className={classes.stepContainer}>
+                    <div className={classes.bigContainer}>
+                      <Stepper classes={{ root: classes.stepper }} activeStep={activeStep} alternativeLabel>
+                        {steps.map(label => {
+                          return (
+                            <Step key={label}>
+                              <StepLabel>{label}</StepLabel>
+                            </Step>
+                          );
+                        })}
+                      </Stepper>
+                    </div>
+                    <Fade
+                      in={loading}
+                      style={{
+                        transitionDelay: loading ? '800ms' : '0ms',
+                      }}
+                      unmountOnExit
+                    >
+                      <CircularProgress style={{ marginBottom: 32, width: 100, height: 100 }} />
+                    </Fade>
+                    {questions.map((k, v) => {
+                      return (
+                        <div className={classes.bigContainer} key={v + 1}>
+                          <Paper className={classes.paper}>
+                            <div className={classes.topInfo}>
+                              <div>
+                                <Typography variant="subtitle1" style={{ fontWeight: 'bold' }} gutterBottom>
+                                  {v + 1}.  {ReactHtmlParser(k.question)}
+                                </Typography>
+                                {/* <Typography variant="body1" gutterBottom> */}
+                                <RadioGroup aria-label="gender" name="'radio'+v" value={this.state.value} onClick={this.handleChange}>
+                                  <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
+                                  <FormControlLabel value="No" control={<Radio />} label="No" />
+                                </RadioGroup>
+                                {/* </Typography> */}
+                              </div>
                             </div>
-                          </div>
-                        </Paper>
-                      </div>)
-                  })};
+                          </Paper>
+                        </div>)
+                    })};
 
                 </div>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </div>
-      </React.Fragment>
-    )
+          </div>
+        </React.Fragment>
+      )
+    }
   }
-}
 
-export default withRouter(withStyles(styles)(Dashboard));
+  export default withRouter(withStyles(styles)(Dashboard));

@@ -5,7 +5,6 @@ import './App.css';
 import Routes from './routes'
 import { blue, indigo } from '@material-ui/core/colors'
 import { connect } from "react-redux";
-import addArticle from "./redux/actions/index";
 
 
 const theme = createMuiTheme({
@@ -39,15 +38,13 @@ class App extends Component {
   }
 }
 const mapState = state => ({
-  articles: state.articles,
+  posts: state.posts,
 });
-const mapDispatch = dispatch => ({
-  addArticle: (payload) => dispatch(addArticle(payload)),
-});
+const mapDispatch = dispatch => ({}); 
 
 
 export default connect(
   mapState,
   mapDispatch
 )(App);
-
+export default App;
