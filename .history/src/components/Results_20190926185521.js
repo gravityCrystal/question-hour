@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import CardItem from './cards/CardItem';
 import Icon from '@material-ui/core/Icon';
-// import Right from '@material-ui/icons/Right';
+import Right from '@material-ui/icons/Right';
 import { withRouter } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -82,10 +82,9 @@ class Results extends Component {
                             <Typography variant="subtitle1" style={{ fontWeight: 'bold' }} gutterBottom>
                               {v + 1}.  {ReactHtmlParser(k.question)}
                             </Typography>
-                            {/* <Typography variant="body1" gutterBottom> */}
-                            <i class="material-icons">done</i>
-                            <i class="material-icons">cancel</i>
-                            {/* </Typography> */}
+                            <Typography variant="body1" gutterBottom>
+                              <i class="material-icons">face</i>
+                            </Typography>
                           </div>
                         </div>
                       </Paper>

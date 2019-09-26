@@ -19,7 +19,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fade from '@material-ui/core/Fade';
 import ReactRadioButtonGroup from 'react-radio-button-group';
-// import { MatIconModule } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon'
 import Topbar from './Topbar';
 const backgroundShape = require('../images/shape.svg');
 
@@ -82,10 +82,9 @@ class Results extends Component {
                             <Typography variant="subtitle1" style={{ fontWeight: 'bold' }} gutterBottom>
                               {v + 1}.  {ReactHtmlParser(k.question)}
                             </Typography>
-                            {/* <Typography variant="body1" gutterBottom> */}
-                            <i class="material-icons">done</i>
-                            <i class="material-icons">cancel</i>
-                            {/* </Typography> */}
+                            <Typography variant="body1" gutterBottom>
+                              <i class="material-icons">face</i>
+                            </Typography>
                           </div>
                         </div>
                       </Paper>

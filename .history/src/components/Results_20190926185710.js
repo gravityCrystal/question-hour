@@ -84,7 +84,6 @@ class Results extends Component {
                             </Typography>
                             {/* <Typography variant="body1" gutterBottom> */}
                             <i class="material-icons">done</i>
-                            <i class="material-icons">cancel</i>
                             {/* </Typography> */}
                           </div>
                         </div>

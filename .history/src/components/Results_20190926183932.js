@@ -3,8 +3,7 @@ import withStyles from '@material-ui/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import CardItem from './cards/CardItem';
-import Icon from '@material-ui/core/Icon';
-// import Right from '@material-ui/icons/Right';
+
 import { withRouter } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -19,10 +18,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fade from '@material-ui/core/Fade';
 import ReactRadioButtonGroup from 'react-radio-button-group';
-// import { MatIconModule } from '@angular/material/icon'
 import Topbar from './Topbar';
 const backgroundShape = require('../images/shape.svg');
-
 
 const styles = theme => ({
   root: {
@@ -73,6 +70,7 @@ class Results extends Component {
                 >
                   <CircularProgress style={{ marginBottom: 32, width: 100, height: 100 }} />
                 </Fade> */}
+                <CardItem>
                 {answeredQuestions.map((k, v) => {
                   return (
                     <div className={classes.bigContainer} key={v + 1}>
@@ -83,15 +81,13 @@ class Results extends Component {
                               {v + 1}.  {ReactHtmlParser(k.question)}
                             </Typography>
                             {/* <Typography variant="body1" gutterBottom> */}
-                            <i class="material-icons">done</i>
-                            <i class="material-icons">cancel</i>
                             {/* </Typography> */}
                           </div>
                         </div>
                       </Paper>
                     </div>)
                 })};
-
+                </CardItem />
               </Grid>
             </Grid>
           </Grid>

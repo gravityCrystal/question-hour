@@ -82,10 +82,9 @@ class Results extends Component {
                             <Typography variant="subtitle1" style={{ fontWeight: 'bold' }} gutterBottom>
                               {v + 1}.  {ReactHtmlParser(k.question)}
                             </Typography>
-                            {/* <Typography variant="body1" gutterBottom> */}
-                            <i class="material-icons">done</i>
-                            <i class="material-icons">cancel</i>
-                            {/* </Typography> */}
+                            <Typography variant="body1" gutterBottom>
+                              <i class="material-icons">done</i>
+                            </Typography>
                           </div>
                         </div>
                       </Paper>
