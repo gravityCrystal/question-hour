@@ -5,8 +5,7 @@ import './App.css';
 import Routes from './routes'
 import { blue, indigo } from '@material-ui/core/colors'
 import { connect } from "react-redux";
-import addArticle from "./redux/actions/index";
-
+import { simpleAction } from './redux/actions/simpleAction'
 
 const theme = createMuiTheme({
   palette: {
@@ -26,28 +25,31 @@ const theme = createMuiTheme({
   }
 });
 
-
+const mapStateToProps = state => ({
+  ...state
+})
+const mapDispatchToProps = dispatch => ({
+  simpleAction2: () => dispatch(simpleAction())
+})
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log(props);
+  }
   render() {
+
     return (
       <div>
         <ThemeProvider theme={theme}>
-          <Routes />
+          <Routes {...this.props}/>  
         </ThemeProvider>
       </div>
     );
   }
 }
-const mapState = state => ({
-  articles: state.articles,
-});
-const mapDispatch = dispatch => ({
-  addArticle: (payload) => dispatch(addArticle(payload)),
-});
 
 
-export default connect(
-  mapState,
-  mapDispatch
-)(App);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 

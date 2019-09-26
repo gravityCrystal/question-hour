@@ -95,7 +95,9 @@ class Main extends Component {
   };
 
   componentDidMount() { }
-
+  simpleAction1 = (event) => {
+    this.props.simpleAction2();
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -127,6 +129,12 @@ class Main extends Component {
               </Grid>
             </Grid>
           </Grid>
+          <button onClick={this.simpleAction1}>Test redux action</button>
+        <pre>
+          {
+            JSON.stringify(this.props)
+          }
+        </pre>
        </div>
       </React.Fragment>
     )

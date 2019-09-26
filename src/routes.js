@@ -5,14 +5,20 @@ import Main from './components/Main'
 import Results from './components/Results'
 import ScrollToTop from './components/ScrollTop'
 
-export default props => (
-    <HashRouter>
-      <ScrollToTop>
-        <Switch>
-          <Route exact path='/' component={ Main } />
-          <Route exact path='/dashboard' component={ Dashboard } />  
-          <Route exact path='/results' component={ Results } />
-        </Switch>
-      </ScrollToTop>
-    </HashRouter>
-  )
+export default ({props}) => (
+  <HashRouter>
+    <ScrollToTop>
+      <Switch>
+        <Route exact path='/' component={Main} render={(props) => (
+          <Main  {...props} />
+        )} />
+        <Route exact path='/dashboard' render={(props) => (
+          <Dashboard  {...props} />
+        )} />
+        <Route exact path='/results' render={(props) => (
+          <Results  {...props} />
+        )} />
+      </Switch>
+    </ScrollToTop>
+  </HashRouter>
+)

@@ -9,15 +9,16 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Back from './common/Back'
 import ReactHtmlParser from 'react-html-parser';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fade from '@material-ui/core/Fade';
-import Topbar from './Topbar';
 import ReactRadioButtonGroup from 'react-radio-button-group';
 
+import Topbar from './Topbar';
+import RadioButton from './RadioButton';
+import Back from './common/Back'
 
 const backgroundShape = require('../images/shape.svg');
 
@@ -106,6 +107,7 @@ const getSteps = () => {
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       error: null,
       value: null,
@@ -113,76 +115,52 @@ class Dashboard extends Component {
       isLoaded: false,
       loading: true,
       questions: [],
-      answeredQuestions: []
+      answeredQuestions: [],
+      dummy: ''
     };
+    this.changeText = this.changeText.bind(this);
+  }
 
 
-  }
-  componentDidMount() {
-    this.callQuestionApi();
-  }
+
+
+  
+componentDidMount() {
+  this.callQuestionApi();
+}
+changeText(event){
+  console.log(event.target.value);
+  this.setState({
+    dummy: event.target.value
+  });
+}
 
   callQuestionApi() {
     fetch("https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean")
       .then(res => res.json())
       .then(
-      (result) => {
-        console.log(JSON.stringify(result.results), 0, null);
-        this.setState({
-          questions: result.results,
-          loading: false,
-        });
-      },
-      // Note: it's important to handle errors here
-      // instead of a catch() block so that we don't swallow
-      // exceptions from actual bugs in components.
-      (error) => {
-        this.setState({
-          loading: false,
-          error
-        });
-      }
+        (result) => {
+          console.log(JSON.stringify(result.results), 0, null);
+          this.setState({
+            questions: result.results,
+            loading: false,
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            loading: false,
+            error
+          });
+        }
       )
   }
   handleChange = event => {
     const [setValue] = React.useState('Yes');
     setValue(event.target.value);
   };
-  handleNext = () => {
-    this.setState(state => ({
-      activeStep: state.activeStep + 1,
-    }));
-  };
-
-  handleBack = () => {
-    this.setState(state => ({
-      activeStep: state.activeStep - 1,
-    }));
-  };
-
-  handleReset = () => {
-    this.setState({
-      activeStep: 0,
-    });
-  };
-
-  // handleChange = event => {
-
-  //   // this.answeredQuestions.push(event.target.value);
-  //   console.log(this.answeredQuestions, event);
-  //   // this.setState({ [event.target.name]: event.target.value }, console.log(this.state));
-  // };
-
-
-
-  goToDashboard = event => {
-    const queryString = this.props.location.search
-
-    this.props.history.push({
-      pathname: '/dashboard',
-      search: queryString
-    })
-  }
 
   render() {
 
@@ -221,7 +199,7 @@ class Dashboard extends Component {
                   >
                     <CircularProgress style={{ marginBottom: 32, width: 100, height: 100 }} />
                   </Fade>
-                  <ReactRadioButtonGroup name="number" options={["One", "Two", "Three"]} value="Three" />
+                  {/* <ReactRadioButtonGroup name="number" options={["One", "Two", "Three"]} value="Three" /> */}
 
                   {questions.map((k, v) => {
                     return (
@@ -233,10 +211,11 @@ class Dashboard extends Component {
                                 {v + 1}.  {ReactHtmlParser(k.question)}
                               </Typography>
                               {/* <Typography variant="body1" gutterBottom> */}
-                              <RadioGroup aria-label="gender" name="'radio'+v" value={this.state.value} onClick={this.handleChange}>
-                                <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
-                                <FormControlLabel value="No" control={<Radio />} label="No" />
-                              </RadioGroup>
+                              <RadioButton props={{
+                                answeredQuestions: this.state.answeredQuestions,
+                                dummy: this.state.dummy,
+                                changeText: this.changeText
+                              }} />
                               {/* </Typography> */}
                             </div>
                           </div>
