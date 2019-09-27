@@ -61,7 +61,7 @@ class Results extends Component {
   }
   render() {
     const { classes, location } = this.props;
-    const { displayResults } = location;
+    const { displayResults,correctAnswerCount } = location;
     return (
       <React.Fragment>
         <CssBaseline />
@@ -77,7 +77,11 @@ class Results extends Component {
                     <Button color='primary' variant="contained" className={classes.actionButtom}>
                       Play Test again
                     </Button>
-                  </Link></div>
+                  </Link>
+                  </div>
+                  <Typography variant="subtitle1" style={{ fontWeight: 'bold', paddingTop: 21, marginLeft: 10 }} gutterBottom>
+                            Score: {correctAnswerCount + ' / 10'}
+                            </Typography>
                 {displayResults && displayResults.map((v, k) => {
                   return (
                     <div className={classes.bigContainer} key={'answer' + k + 1}>

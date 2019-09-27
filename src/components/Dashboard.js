@@ -120,9 +120,10 @@ class Dashboard extends Component {
       answeredQuestions: [],
       checkedValue: false,
       open: true,
-      showMessage: false
+      showMessage: false,
+      correctAnswerCount:0
     };
-    this.xx = [];
+    this.tempArray = [];
     this.changeText = this.changeText.bind(this);
     this.verifyAnswerArray = this.verifyAnswerArray.bind(this);
     this.openMessage = this.openMessage.bind(this);
@@ -145,46 +146,46 @@ class Dashboard extends Component {
   }
   changeText(answer, question, index) {
     // console.log(answer, question, index);
-    var x = {};
+    var temp = {};
     const { answeredQuestions } = this.state;
-    x = { 'question': question, correctAnswer: answer };
+    temp = { 'question': question, correctAnswer: answer };
     if (answeredQuestions.length > 0) {
       answeredQuestions.forEach((v, k) => {
         if (v.question === question) {
           answeredQuestions.splice(k, 1);
-          x = { 'question': question, correctAnswer: answer };
+          temp = { 'question': question, correctAnswer: answer };
         }
       })
     }
 
-    this.xx.push(x);
+    this.tempArray.push(temp);
 
 
-    console.log(this.xx);
+    console.log(this.tempArray);
     this.setState({
-      answeredQuestions: this.xx,
+      answeredQuestions: this.tempArray,
       activeStep: index
     });
   }
   correctAnswerArray(param) {
-    var a = [];
-    var x = {};
+    var tempArray = [];
+    var temp = {};
     param.map((v, k) => {
-      x = { 'question': v.question, correctAnswer: v.correct_answer };
-      a.push(x);
+      temp = { 'question': v.question, correctAnswer: v.correct_answer };
+      tempArray.push(temp);
     });
-    // console.log(a);
+    // console.log(tempArray);
     // this.verifyAnswerArray();
-    return a;
+    return tempArray;
   }
   checkAllValuesChecked() {
-    const { questions, answeredQuestions, showMessage } = this.state;
+    const { questions, answeredQuestions, showMessage, correctAnswerCount } = this.state;
     if (answeredQuestions.length !== 10) {
       this.setState({
         showMessage: true
       });
     } else {
-      this.verifyAnswerArray(questions, answeredQuestions);
+      this.verifyAnswerArray(questions, answeredQuestions, correctAnswerCount);
       this.setState({
         showMessage: false
       });
@@ -192,29 +193,32 @@ class Dashboard extends Component {
 
 
   }
-  verifyAnswerArray(questions, answeredQuestions) {
-    console.log(questions, answeredQuestions);
-    let x = { isCorrectAnswer: false };
-    let a = [];
+  verifyAnswerArray(questions, answeredQuestions, correctAnswerCount) {
+    // console.log(questions, answeredQuestions);
+    let temp = { isCorrectAnswer: false };
+    let tempArray = [];
+    // const correctAnswerCount = 0;
     if (answeredQuestions.length === 10) {
       answeredQuestions.forEach(function (answererd, index) {
         questions.forEach(function (original) {
           if (original.question === answererd.question && original.correctAnswer === answererd.correctAnswer) {
-            x.isCorrectAnswer = true;
+            temp.isCorrectAnswer = true;
             answeredQuestions[index].isCorrectAnswer = true;
+            correctAnswerCount++;
           }
         });
-        a.push(x);
+        tempArray.push(temp);
 
       });
-      console.log(a, answeredQuestions);
+      console.log(correctAnswerCount);
       this.setState({
-        answeredQuestions: answeredQuestions
+        answeredQuestions: answeredQuestions,
       });
     }
 
     console.log(this.props)
-    this.props.history.replace({ pathname: '/results', displayResults: this.state.answeredQuestions })
+    this.props.history.replace({ pathname: '/results',
+     displayResults: this.state.answeredQuestions, correctAnswerCount : correctAnswerCount })
   }
   callQuestionApi() {
     fetch("https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean")
@@ -266,7 +270,7 @@ class Dashboard extends Component {
                       horizontal: 'center',
                     }}
                     open={open}
-                    message="Some questions are remaining !!!" />)}
+                    message="Please attempt all questions !!!" />)}
                 <div className={classes.stepContainer}>
                   <div className={classes.bigContainer}>
                     <Stepper classes={{ root: classes.stepper }} activeStep={activeStep} alternativeLabel>
@@ -289,7 +293,6 @@ class Dashboard extends Component {
                   >
                     <CircularProgress style={{ marginBottom: 32, width: 100, height: 100 }} />
                   </Fade>
-
 
                   {questions.map((k, v) => {
                     return (

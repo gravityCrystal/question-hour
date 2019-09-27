@@ -39,17 +39,7 @@ class Back extends Component {
                 <span className={classes.text}>Home</span>
               </Link>
             </Typography>
-          </Grid>
-          {/* <Grid item xs={6} sm={6}>
-          <Typography variant="h6" gutterBottom className="col-6">
-            <Link className={classes.result} to={{ pathname: "/results" }}>
-              <Button color='primary' variant="contained" className={classes.actionButtom}>
-                Submit
-            </Button>
-           
-            </Link>
-             </Typography>
-          </Grid> */}
+          </Grid>        
         </Grid>
 
       </div>
