@@ -124,9 +124,8 @@ class Dashboard extends Component {
       correctAnswerCount:0
     };
     this.tempArray = [];
-    this.changeText = this.changeText.bind(this);
+    this.getRadioParams = this.getRadioParams.bind(this);
     this.verifyAnswerArray = this.verifyAnswerArray.bind(this);
-    this.openMessage = this.openMessage.bind(this);
     this.checkAllValuesChecked = this.checkAllValuesChecked.bind(this);
   }
 
@@ -138,13 +137,8 @@ class Dashboard extends Component {
   handleOpen = () => this.setState({ open: true })
 
   handleClose = () => this.setState({ open: false })
-  openMessage(event) {
-    this.setState({
-      openTextMessage: event.target.value
-    })
-
-  }
-  changeText(answer, question, index) {
+ 
+  getRadioParams(answer, question, index) {
     // console.log(answer, question, index);
     var temp = {};
     const { answeredQuestions } = this.state;
@@ -307,7 +301,7 @@ class Dashboard extends Component {
                               <RadioButton key={'radio' + v + 1} id={'radioID' + v + 1} props={{
                                 answeredQuestions: this.state.answeredQuestions,
                                 checkedValue: this.state.checkedValue,
-                                changeText: this.changeText,
+                                getRadioParams: this.getRadioParams,
                                 name: 'radioID' + v + 1,
                                 question: k.question,
                                 index: v

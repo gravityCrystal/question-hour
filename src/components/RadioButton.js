@@ -8,7 +8,7 @@ export default function RadioButton({ props }) {
 
   const handleChange = event => {
     setSelectedValue(event.target.value);
-    props.changeText(event.target.value, props.question, props.index)
+    props.getRadioParams(event.target.value, props.question, props.index)
   };
 
   return (
