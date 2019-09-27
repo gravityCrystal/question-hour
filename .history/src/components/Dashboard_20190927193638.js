@@ -242,7 +242,7 @@ class Dashboard extends Component {
   render() {
 
     const { classes } = this.props;
-    const { questions, loading, showMessage, open } = this.state;
+    const { questions, loading, showMessage } = this.state;
     const steps = getSteps();
     const { activeStep } = this.state;
 
@@ -259,14 +259,11 @@ class Dashboard extends Component {
                   Submit
                 </Button>
                 {showMessage && (
-                  <Snackbar
-                    autoHideDuration={100}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'center',
-                    }}
-                    open={open}
-                    message="Some questions are remaining !!!" />)}
+                  <Snackbar autoHideDuration={3000} anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                    open={true} message="Some questions are remaining !!!" />)}
                 <div className={classes.stepContainer}>
                   <div className={classes.bigContainer}>
                     <Stepper classes={{ root: classes.stepper }} activeStep={activeStep} alternativeLabel>

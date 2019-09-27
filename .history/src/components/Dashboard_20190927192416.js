@@ -10,7 +10,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import ReactHtmlParser from 'react-html-parser';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Snackbar } from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import Topbar from './Topbar';
@@ -119,8 +119,7 @@ class Dashboard extends Component {
       questions: [],
       answeredQuestions: [],
       checkedValue: false,
-      open: true,
-      showMessage: false
+      open: true
     };
     this.xx = [];
     this.changeText = this.changeText.bind(this);
@@ -178,16 +177,15 @@ class Dashboard extends Component {
     return a;
   }
   checkAllValuesChecked() {
-    const { questions, answeredQuestions, showMessage } = this.state;
+    const { questions, answeredQuestions, open } = this.state;
     if (answeredQuestions.length !== 10) {
-      this.setState({
-        showMessage: true
-      });
+      return (<Snackbar
+        open=true
+        onClose={this.handleClose}
+        message="asdasdasd"
+      />);
     } else {
       this.verifyAnswerArray(questions, answeredQuestions);
-      this.setState({
-        showMessage: false
-      });
     }
 
 
@@ -242,7 +240,7 @@ class Dashboard extends Component {
   render() {
 
     const { classes } = this.props;
-    const { questions, loading, showMessage, open } = this.state;
+    const { questions, loading } = this.state;
     const steps = getSteps();
     const { activeStep } = this.state;
 
@@ -258,15 +256,6 @@ class Dashboard extends Component {
                 <Button color='primary' className={classes.result} variant="contained" onClick={this.checkAllValuesChecked} >
                   Submit
                 </Button>
-                {showMessage && (
-                  <Snackbar
-                    autoHideDuration={100}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'center',
-                    }}
-                    open={open}
-                    message="Some questions are remaining !!!" />)}
                 <div className={classes.stepContainer}>
                   <div className={classes.bigContainer}>
                     <Stepper classes={{ root: classes.stepper }} activeStep={activeStep} alternativeLabel>
@@ -279,7 +268,6 @@ class Dashboard extends Component {
                       })}
                     </Stepper>
                   </div>
-
                   <Fade
                     in={loading}
                     style={{

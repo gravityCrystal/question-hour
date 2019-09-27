@@ -120,7 +120,7 @@ class Dashboard extends Component {
       answeredQuestions: [],
       checkedValue: false,
       open: true,
-      showMessage: false
+      showMessage:
     };
     this.xx = [];
     this.changeText = this.changeText.bind(this);
@@ -178,16 +178,13 @@ class Dashboard extends Component {
     return a;
   }
   checkAllValuesChecked() {
-    const { questions, answeredQuestions, showMessage } = this.state;
+    const { questions, answeredQuestions, open } = this.state;
     if (answeredQuestions.length !== 10) {
       this.setState({
-        showMessage: true
+        open: true
       });
     } else {
       this.verifyAnswerArray(questions, answeredQuestions);
-      this.setState({
-        showMessage: false
-      });
     }
 
 
@@ -242,7 +239,7 @@ class Dashboard extends Component {
   render() {
 
     const { classes } = this.props;
-    const { questions, loading, showMessage, open } = this.state;
+    const { questions, loading, open } = this.state;
     const steps = getSteps();
     const { activeStep } = this.state;
 
@@ -258,15 +255,8 @@ class Dashboard extends Component {
                 <Button color='primary' className={classes.result} variant="contained" onClick={this.checkAllValuesChecked} >
                   Submit
                 </Button>
-                {showMessage && (
-                  <Snackbar
-                    autoHideDuration={100}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'center',
-                    }}
-                    open={open}
-                    message="Some questions are remaining !!!" />)}
+                {open && (<Snackbar
+                  open={true} message="sdfsdfsdfsdf" />)}
                 <div className={classes.stepContainer}>
                   <div className={classes.bigContainer}>
                     <Stepper classes={{ root: classes.stepper }} activeStep={activeStep} alternativeLabel>

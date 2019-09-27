@@ -186,7 +186,8 @@ class Dashboard extends Component {
     } else {
       this.verifyAnswerArray(questions, answeredQuestions);
       this.setState({
-        showMessage: false
+        showMessage: false,
+        open: false
       });
     }
 

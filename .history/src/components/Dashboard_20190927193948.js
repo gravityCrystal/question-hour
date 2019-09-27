@@ -242,7 +242,7 @@ class Dashboard extends Component {
   render() {
 
     const { classes } = this.props;
-    const { questions, loading, showMessage, open } = this.state;
+    const { questions, loading, showMessage,op } = this.state;
     const steps = getSteps();
     const { activeStep } = this.state;
 
