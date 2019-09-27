@@ -29,7 +29,7 @@ const styles = theme => ({
     backgroundSize: 'cover',
     backgroundPosition: '0 400px',
     marginTop: 10,
-    padding: 20,
+    paddingTop: 35,
     paddingBottom: 200
   },
   grid: {
