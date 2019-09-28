@@ -52,11 +52,8 @@ const styles = theme => ({
 class Results extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loading: true,
-      answeredQuestions: []
-    };
-    console.log(this.props, this.state)
+    this.state = {};
+    // console.log(this.props, this.state)
 
   }
   render() {

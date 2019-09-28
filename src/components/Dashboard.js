@@ -111,7 +111,7 @@ const getSteps = () => {
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    // console.log(props);
+    console.log(props);
     this.state = {
       error: null,
       activeStep: null,
@@ -155,7 +155,7 @@ class Dashboard extends Component {
     this.tempArray.push(temp);
 
 
-    console.log(this.tempArray);
+    // console.log(this.tempArray);
     this.setState({
       answeredQuestions: this.tempArray,
       activeStep: index
@@ -204,13 +204,13 @@ class Dashboard extends Component {
         tempArray.push(temp);
 
       });
-      console.log(correctAnswerCount);
+      // console.log(correctAnswerCount);
       this.setState({
         answeredQuestions: answeredQuestions,
       });
     }
 
-    console.log(this.props)
+    // console.log(this.props)
     this.props.history.replace({ pathname: '/results',
      displayResults: this.state.answeredQuestions, correctAnswerCount : correctAnswerCount })
   }

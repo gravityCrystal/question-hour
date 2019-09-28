@@ -88,17 +88,17 @@ const styles = theme => ({
 });
 
 class Main extends Component {
-
-  state = {
-    learnMoredialog: false,
-    getStartedDialog: false
-  };
+  constructor(props) {
+    super(props);
+  console.log(props);
+}
 
   componentDidMount() { }
   simpleAction1 = (event) => {
     this.props.simpleAction2();
   }
   render() {
+    console.log(this.props);
     const { classes } = this.props;
     return (
       <React.Fragment>
