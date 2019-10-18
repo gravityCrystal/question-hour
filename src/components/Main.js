@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import withStyles from '@material-ui/styles/withStyles';
 import { Link, withRouter } from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -90,8 +89,8 @@ const styles = theme => ({
 class Main extends Component {
   constructor(props) {
     super(props);
-  console.log(props);
-}
+    console.log(props);
+  }
 
   componentDidMount() { }
   simpleAction1 = (event) => {
@@ -102,7 +101,6 @@ class Main extends Component {
     const { classes } = this.props;
     return (
       <React.Fragment>
-        <CssBaseline />
         <Topbar />
         <div className={classes.root}>
           <Grid container justify="center">

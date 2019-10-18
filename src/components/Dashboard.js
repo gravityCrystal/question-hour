@@ -5,9 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
+
 import ReactHtmlParser from 'react-html-parser';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Snackbar } from '@material-ui/core';
@@ -15,8 +13,8 @@ import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import Topbar from './Topbar';
 import RadioButton from './RadioButton';
+import HorizontalLinearStepper from './Stepper';
 import Back from './common/Back'
-
 const backgroundShape = require('../images/shape.svg');
 
 
@@ -95,16 +93,16 @@ const styles = theme => ({
 
 const getSteps = () => {
   return [
-    'Question1',
-    'Question2',
-    'Question3',
-    'Question4',
-    'Question5',
-    'Question6',
-    'Question7',
-    'Question8',
-    'Question9',
-    'Question10'
+    { 'Question1': false },
+    { 'Question2': false },
+    { 'Question3': false },
+    { 'Question4': false },
+    { 'Question5': false },
+    { 'Question6': false },
+    { 'Question7': false },
+    { 'Question8': false },
+    { 'Question9': false },
+    { 'Question10': false }
   ];
 }
 
@@ -121,7 +119,7 @@ class Dashboard extends Component {
       checkedValue: false,
       open: true,
       showMessage: false,
-      correctAnswerCount:0
+      correctAnswerCount: 0
     };
     this.tempArray = [];
     this.getRadioParams = this.getRadioParams.bind(this);
@@ -137,7 +135,7 @@ class Dashboard extends Component {
   handleOpen = () => this.setState({ open: true })
 
   handleClose = () => this.setState({ open: false })
- 
+
   getRadioParams(answer, question, index) {
     // console.log(answer, question, index);
     var temp = {};
@@ -173,7 +171,7 @@ class Dashboard extends Component {
     return tempArray;
   }
   checkAllValuesChecked() {
-    const { questions, answeredQuestions, showMessage, correctAnswerCount } = this.state;
+    const { questions, answeredQuestions, correctAnswerCount } = this.state;
     if (answeredQuestions.length !== 10) {
       this.setState({
         showMessage: true
@@ -211,8 +209,10 @@ class Dashboard extends Component {
     }
 
     // console.log(this.props)
-    this.props.history.replace({ pathname: '/results',
-     displayResults: this.state.answeredQuestions, correctAnswerCount : correctAnswerCount })
+    this.props.history.replace({
+      pathname: '/results',
+      displayResults: this.state.answeredQuestions, correctAnswerCount: correctAnswerCount
+    })
   }
   callQuestionApi() {
     fetch("https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean")
@@ -267,15 +267,9 @@ class Dashboard extends Component {
                     message="Please attempt all questions !!!" />)}
                 <div className={classes.stepContainer}>
                   <div className={classes.bigContainer}>
-                    <Stepper classes={{ root: classes.stepper }} activeStep={activeStep} alternativeLabel>
-                      {steps.map(label => {
-                        return (
-                          <Step key={label} >
-                            <StepLabel>{label}</StepLabel>
-                          </Step>
-                        );
-                      })}
-                    </Stepper>
+                    <HorizontalLinearStepper props={{
+                      steps: steps
+                    }}></HorizontalLinearStepper>
                   </div>
 
                   <Fade
