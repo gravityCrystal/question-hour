@@ -100,20 +100,3 @@ export default function HorizontalLinearStepper({ props }) {
         </div>
     );
 }
-
-
-// {
-//     steps.map((v, k) => {
-//         // console.log(k, v)
-//         return (
-//             <Stepper classes={{ root: classes.stepper }} activeStep={} alternativeLabel >
-//                 {
-//                     v && (
-//                         <Step key={v} >
-//                             <StepLabel>{v}</StepLabel>
-//                         </Step>
-//                     )
-//                 }
-//             </Stepper>
-//         );
-//     })}

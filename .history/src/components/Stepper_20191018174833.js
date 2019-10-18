@@ -86,34 +86,21 @@ export default function HorizontalLinearStepper({ props }) {
 
     return (
         <div className={classes.root}>
-            <Stepper classes={{ root: classes.stepper }} activeStep={5} alternativeLabel nonLinear={'true'} >
-                {
-                    steps.map((v, k) => {
-                        console.log(k, v)
-                        return (
-                            <Step key={v} >
-                                <StepLabel>{v}</StepLabel>
-                            </Step>
-                        );
-                    })}
-            </Stepper>
+            {
+                steps.map((v, k) => {
+                    // console.log(k, v)
+                    return (
+                        <Stepper classes={{ root: classes.stepper }} activeStep={0} alternativeLabel >
+                            {
+                                v && (
+                                    <Step key={v} >
+                                        <StepLabel>{v}</StepLabel>
+                                    </Step>
+                                )
+                            }
+                        </Stepper>
+                    );
+                })}
         </div>
     );
 }
-
-
-// {
-//     steps.map((v, k) => {
-//         // console.log(k, v)
-//         return (
-//             <Stepper classes={{ root: classes.stepper }} activeStep={} alternativeLabel >
-//                 {
-//                     v && (
-//                         <Step key={v} >
-//                             <StepLabel>{v}</StepLabel>
-//                         </Step>
-//                     )
-//                 }
-//             </Stepper>
-//         );
-//     })}
