@@ -15,7 +15,7 @@ import Topbar from './Topbar';
 import RadioButton from './RadioButton';
 import HorizontalLinearStepper from './Stepper';
 import Back from './common/Back'
-import { NONAME } from 'dns';
+import { threadId } from 'worker_threads';
 const backgroundShape = require('../images/shape.svg');
 
 
@@ -58,9 +58,6 @@ const styles = theme => ({
   stepper: {
     backgroundColor: 'transparent'
   },
-  big: {
-    display: 'none'
-  },
   paper: {
     padding: theme.spacing(3),
     textAlign: 'left',
@@ -97,16 +94,16 @@ const styles = theme => ({
 
 const getSteps = () => {
   return [
-    { 'Question1': false },
-    { 'Question2': false },
-    { 'Question3': false },
-    { 'Question4': false },
-    { 'Question5': false },
-    { 'Question6': false },
-    { 'Question7': false },
-    { 'Question8': false },
-    { 'Question9': false },
-    { 'Question10': false }
+    { '0': false },
+    { '1': false },
+    { '2': false },
+    { '3': false },
+    { '4': false },
+    { '5': false },
+    { '6': false },
+    { '7': false },
+    { '8': false },
+    { '9': false }
   ];
 }
 
@@ -120,14 +117,14 @@ class Dashboard extends Component {
       loading: true,
       questions: [],
       answeredQuestions: [],
-      statusArray: [],
       checkedValue: false,
       open: true,
       showMessage: false,
-      correctAnswerCount: 0
+      correctAnswerCount: 0,
+      stepperAnswerArray: new Set()
     };
     this.tempArray = [];
-    this.tempArray2 = new Set();
+    this.tempArray2 = [];
     this.getRadioParams = this.getRadioParams.bind(this);
     this.verifyAnswerArray = this.verifyAnswerArray.bind(this);
     this.checkAllValuesChecked = this.checkAllValuesChecked.bind(this);
@@ -145,23 +142,33 @@ class Dashboard extends Component {
   getRadioParams(answer, question, index) {
     // console.log(answer, question, index);
     var temp = {};
-    const { answeredQuestions, statusArray } = this.state;
-    temp = { 'question': question, correctAnswer: answer };
+    var temp2 = {};
+    const { answeredQuestions, stepperAnswerArray } = this.state;
+    temp = { 'question': question, correctAnswer: answer, index:index };
     if (answeredQuestions.length > 0) {
       answeredQuestions.forEach((v, k) => {
         if (v.question === question) {
           answeredQuestions.splice(k, 1);
-          temp = { 'question': question, correctAnswer: answer};
+          temp = { 'question': question, correctAnswer: answer, index: index };
         }
       })
     }
     this.tempArray.push(temp);
-    this.tempArray2.add(index+1);
+
+    // stepperAnswerArray.forEach((v, k) => {
+    //   // debugger;
+    //   if (k === index) {
+    //   /// stepperAnswerArray.splice(k, 1);
+    //     temp2 = { index: index };
+    //   }
+    // });
+    this.stepperAnswerArray.push(index);
+    // this.tempArray2.push(temp2);
     // console.log(this.tempArray);
     this.setState({
       answeredQuestions: this.tempArray,
       activeStep: index,
-      statusArray: this.tempArray2
+      stepperAnswerArray: this.stepperAnswerArray
     });
   }
   correctAnswerArray(param) {
@@ -245,9 +252,9 @@ class Dashboard extends Component {
   render() {
 
     const { classes } = this.props;
-    const { questions, loading, showMessage, open, statusArray } = this.state;
-    const steps = getSteps();
+    const { questions, loading, showMessage, open,answeredQuestions, stepperAnswerArray } = this.state;
     const { activeStep } = this.state;
+    console.log(stepperAnswerArray);
 
     return (
       <React.Fragment>
@@ -273,7 +280,7 @@ class Dashboard extends Component {
                 <div className={classes.stepContainer}>
                   <div className={classes.bigContainer}>
                     <HorizontalLinearStepper props={{
-                      steps: statusArray
+                      steps: stepperAnswerArray
                     }}></HorizontalLinearStepper>
                   </div>
 
@@ -289,7 +296,7 @@ class Dashboard extends Component {
 
                   {questions.map((k, v) => {
                     return (
-                      <div className={[classes.bigContainer, 'big' + v ].join(' ')} key={v + 1} >
+                      <div className={classes.bigContainer} key={v + 1}>
                         <Paper className={classes.paper}>
                           <div className={classes.topInfo}>
                             <div>
