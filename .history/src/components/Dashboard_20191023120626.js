@@ -236,6 +236,8 @@ class Dashboard extends Component {
 
     const { classes } = this.props;
     const { questions, loading, showMessage, open, statusArray } = this.state;
+    const steps = getSteps();
+    const { activeStep } = this.state;
 
     return (
       <React.Fragment>

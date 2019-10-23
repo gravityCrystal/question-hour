@@ -15,6 +15,7 @@ import Topbar from './Topbar';
 import RadioButton from './RadioButton';
 import StatusStepper from './Stepper';
 import Back from './common/Back'
+import { NONAME } from 'dns';
 const backgroundShape = require('../images/shape.svg');
 
 
@@ -96,6 +97,19 @@ const styles = theme => ({
 
 const getSteps = () => {
   return [false, false, false, false, false, false, false, false, false, false]
+
+  //  [
+  //   { 'Question1': false },
+  //   { 'Question2': false },
+  //   { 'Question3': false },
+  //   { 'Question4': false },
+  //   { 'Question5': false },
+  //   { 'Question6': false },
+  //   { 'Question7': false },
+  //   { 'Question8': false },
+  //   { 'Question9': false },
+  //   { 'Question10': false }
+  // ]
 }
 
 class Dashboard extends Component {
@@ -108,6 +122,7 @@ class Dashboard extends Component {
       loading: true,
       questions: [],
       answeredQuestions: [],
+      statusArray: [],
       checkedValue: false,
       open: true,
       showMessage: false,
@@ -133,27 +148,54 @@ class Dashboard extends Component {
   getRadioParams(answer, question, index) {
     // console.log(answer, question, index);
     var temp = {};
+<<<<<<< HEAD
+    // this.getAllStatus(index);
+=======
+>>>>>>> bbd942d0caf131497b2d45f1a183da425e82b506
     const { answeredQuestions, statusArray } = this.state;
     temp = { 'question': question, correctAnswer: answer };
     if (answeredQuestions.length > 0) {
       answeredQuestions.forEach((v, k) => {
         if (v.question === question) {
           answeredQuestions.splice(k, 1);
-          temp = { 'question': question, correctAnswer: answer };
+          temp = { 'question': question, correctAnswer: answer};
         }
       })
     }
     this.tempArray.push(temp);
+<<<<<<< HEAD
 
     statusArray[index] = true;
+=======
+    this.tempArray2.add(index+1);
+>>>>>>> bbd942d0caf131497b2d45f1a183da425e82b506
     // console.log(this.tempArray);
     this.setState({
       answeredQuestions: this.tempArray,
       activeStep: index,
+<<<<<<< HEAD
       statusArray: statusArray
+=======
+      statusArray: this.tempArray2
+>>>>>>> bbd942d0caf131497b2d45f1a183da425e82b506
     });
   }
 
+  getAllStatus(params) {
+    const { statusArray } = this.state;
+    let newKey = {};
+    statusArray.forEach((v, k) => {
+      let kys = Object.keys(v);
+      newKey = parseInt(kys.toString().substring(8, 10));
+      if (newKey === (parseInt(params) + 1)) {
+        // statusArray.splice(k, 1);
+        // temp = { 'question': question, correctAnswer: answer };
+        statusArray[k] = true;
+      }
+    });
+
+    console.log(statusArray);
+  }
   correctAnswerArray(param) {
     var tempArray = [];
     var temp = {};
@@ -236,6 +278,8 @@ class Dashboard extends Component {
 
     const { classes } = this.props;
     const { questions, loading, showMessage, open, statusArray } = this.state;
+    const steps = getSteps();
+    const { activeStep } = this.state;
 
     return (
       <React.Fragment>
@@ -260,9 +304,15 @@ class Dashboard extends Component {
                     message="Please attempt all questions !!!" />)}
                 <div className={classes.stepContainer}>
                   <div className={classes.bigContainer}>
+<<<<<<< HEAD
                     <StatusStepper props={{
                       statusSteps: statusArray
                     }}></StatusStepper>
+=======
+                    <HorizontalLinearStepper props={{
+                      steps: statusArray
+                    }}></HorizontalLinearStepper>
+>>>>>>> bbd942d0caf131497b2d45f1a183da425e82b506
                   </div>
 
                   <Fade
@@ -277,7 +327,7 @@ class Dashboard extends Component {
 
                   {questions.map((k, v) => {
                     return (
-                      <div className={[classes.bigContainer, 'big' + v].join(' ')} key={v + 1} >
+                      <div className={[classes.bigContainer, 'big' + v ].join(' ')} key={v + 1} >
                         <Paper className={classes.paper}>
                           <div className={classes.topInfo}>
                             <div>

@@ -15,6 +15,7 @@ import Topbar from './Topbar';
 import RadioButton from './RadioButton';
 import StatusStepper from './Stepper';
 import Back from './common/Back'
+import { NONAME } from 'dns';
 const backgroundShape = require('../images/shape.svg');
 
 
@@ -108,6 +109,7 @@ class Dashboard extends Component {
       loading: true,
       questions: [],
       answeredQuestions: [],
+      statusArray: [],
       checkedValue: false,
       open: true,
       showMessage: false,
@@ -133,13 +135,14 @@ class Dashboard extends Component {
   getRadioParams(answer, question, index) {
     // console.log(answer, question, index);
     var temp = {};
+    // this.getAllStatus(index);
     const { answeredQuestions, statusArray } = this.state;
     temp = { 'question': question, correctAnswer: answer };
     if (answeredQuestions.length > 0) {
       answeredQuestions.forEach((v, k) => {
         if (v.question === question) {
           answeredQuestions.splice(k, 1);
-          temp = { 'question': question, correctAnswer: answer };
+          temp = { 'question': question, correctAnswer: answer};
         }
       })
     }
@@ -154,6 +157,21 @@ class Dashboard extends Component {
     });
   }
 
+  getAllStatus(params) {
+    const { statusArray } = this.state;
+    let newKey = {};
+    statusArray.forEach((v, k) => {
+      let kys = Object.keys(v);
+      newKey = parseInt(kys.toString().substring(8, 10));
+      if (newKey === (parseInt(params) + 1)) {
+        // statusArray.splice(k, 1);
+        // temp = { 'question': question, correctAnswer: answer };
+        statusArray[k] = true;
+      }
+    });
+
+    console.log(statusArray);
+  }
   correctAnswerArray(param) {
     var tempArray = [];
     var temp = {};
@@ -236,6 +254,8 @@ class Dashboard extends Component {
 
     const { classes } = this.props;
     const { questions, loading, showMessage, open, statusArray } = this.state;
+    const steps = getSteps();
+    const { activeStep } = this.state;
 
     return (
       <React.Fragment>
@@ -277,7 +297,7 @@ class Dashboard extends Component {
 
                   {questions.map((k, v) => {
                     return (
-                      <div className={[classes.bigContainer, 'big' + v].join(' ')} key={v + 1} >
+                      <div className={[classes.bigContainer, 'big' + v ].join(' ')} key={v + 1} >
                         <Paper className={classes.paper}>
                           <div className={classes.topInfo}>
                             <div>

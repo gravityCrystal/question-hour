@@ -26,7 +26,7 @@ export default function StatusStepper({ props }) {
         <div className={classes.root}>
             <Stepper classes={{ root: classes.stepper }} alternativeLabel nonLinear={true} >
                 {
-                    statusSteps && statusSteps.map((v, k) => {
+                    statusSteps.length > 0 && statusSteps.map((v, k) => {
                         console.log(v, k)
                         return (
                             <Step key={k} active={v} >
@@ -39,3 +39,19 @@ export default function StatusStepper({ props }) {
     );
 }
 
+
+// {
+//     steps.map((v, k) => {
+//         // console.log(k, v)
+//         return (
+//             <Stepper classes={{ root: classes.stepper }} activeStep={} alternativeLabel >
+//                 {
+//                     v && (
+//                         <Step key={v} >
+//                             <StepLabel>{v}</StepLabel>
+//                         </Step>
+//                     )
+//                 }
+//             </Stepper>
+//         );
+//     })}

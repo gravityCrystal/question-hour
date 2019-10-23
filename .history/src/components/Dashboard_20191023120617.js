@@ -154,6 +154,21 @@ class Dashboard extends Component {
     });
   }
 
+  getAllStatus(params) {
+    const { statusArray } = this.state;
+    let newKey = {};
+    statusArray.forEach((v, k) => {
+      let kys = Object.keys(v);
+      newKey = parseInt(kys.toString().substring(8, 10));
+      if (newKey === (parseInt(params) + 1)) {
+        // statusArray.splice(k, 1);
+        // temp = { 'question': question, correctAnswer: answer };
+        statusArray[k] = true;
+      }
+    });
+
+    console.log(statusArray);
+  }
   correctAnswerArray(param) {
     var tempArray = [];
     var temp = {};
@@ -236,6 +251,8 @@ class Dashboard extends Component {
 
     const { classes } = this.props;
     const { questions, loading, showMessage, open, statusArray } = this.state;
+    const steps = getSteps();
+    const { activeStep } = this.state;
 
     return (
       <React.Fragment>

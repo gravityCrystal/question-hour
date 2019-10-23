@@ -154,6 +154,7 @@ class Dashboard extends Component {
     });
   }
 
+  getAllStatus(params) {
   correctAnswerArray(param) {
     var tempArray = [];
     var temp = {};
@@ -236,6 +237,8 @@ class Dashboard extends Component {
 
     const { classes } = this.props;
     const { questions, loading, showMessage, open, statusArray } = this.state;
+    const steps = getSteps();
+    const { activeStep } = this.state;
 
     return (
       <React.Fragment>

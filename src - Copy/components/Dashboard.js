@@ -13,8 +13,9 @@ import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import Topbar from './Topbar';
 import RadioButton from './RadioButton';
-import StatusStepper from './Stepper';
+import HorizontalLinearStepper from './Stepper';
 import Back from './common/Back'
+import { threadId } from 'worker_threads';
 const backgroundShape = require('../images/shape.svg');
 
 
@@ -57,9 +58,6 @@ const styles = theme => ({
   stepper: {
     backgroundColor: 'transparent'
   },
-  big: {
-    display: 'none'
-  },
   paper: {
     padding: theme.spacing(3),
     textAlign: 'left',
@@ -95,7 +93,18 @@ const styles = theme => ({
 })
 
 const getSteps = () => {
-  return [false, false, false, false, false, false, false, false, false, false]
+  return [
+    { '0': false },
+    { '1': false },
+    { '2': false },
+    { '3': false },
+    { '4': false },
+    { '5': false },
+    { '6': false },
+    { '7': false },
+    { '8': false },
+    { '9': false }
+  ];
 }
 
 class Dashboard extends Component {
@@ -112,10 +121,10 @@ class Dashboard extends Component {
       open: true,
       showMessage: false,
       correctAnswerCount: 0,
-      statusArray: getSteps()
+      stepperAnswerArray: new Set()
     };
     this.tempArray = [];
-    this.tempArray2 = new Set();
+    this.tempArray2 = [];
     this.getRadioParams = this.getRadioParams.bind(this);
     this.verifyAnswerArray = this.verifyAnswerArray.bind(this);
     this.checkAllValuesChecked = this.checkAllValuesChecked.bind(this);
@@ -133,27 +142,35 @@ class Dashboard extends Component {
   getRadioParams(answer, question, index) {
     // console.log(answer, question, index);
     var temp = {};
-    const { answeredQuestions, statusArray } = this.state;
-    temp = { 'question': question, correctAnswer: answer };
+    var temp2 = {};
+    const { answeredQuestions, stepperAnswerArray } = this.state;
+    temp = { 'question': question, correctAnswer: answer, index:index };
     if (answeredQuestions.length > 0) {
       answeredQuestions.forEach((v, k) => {
         if (v.question === question) {
           answeredQuestions.splice(k, 1);
-          temp = { 'question': question, correctAnswer: answer };
+          temp = { 'question': question, correctAnswer: answer, index: index };
         }
       })
     }
     this.tempArray.push(temp);
 
-    statusArray[index] = true;
+    // stepperAnswerArray.forEach((v, k) => {
+    //   // debugger;
+    //   if (k === index) {
+    //   /// stepperAnswerArray.splice(k, 1);
+    //     temp2 = { index: index };
+    //   }
+    // });
+    this.stepperAnswerArray.push(index);
+    // this.tempArray2.push(temp2);
     // console.log(this.tempArray);
     this.setState({
       answeredQuestions: this.tempArray,
       activeStep: index,
-      statusArray: statusArray
+      stepperAnswerArray: this.stepperAnswerArray
     });
   }
-
   correctAnswerArray(param) {
     var tempArray = [];
     var temp = {};
@@ -235,7 +252,9 @@ class Dashboard extends Component {
   render() {
 
     const { classes } = this.props;
-    const { questions, loading, showMessage, open, statusArray } = this.state;
+    const { questions, loading, showMessage, open,answeredQuestions, stepperAnswerArray } = this.state;
+    const { activeStep } = this.state;
+    console.log(stepperAnswerArray);
 
     return (
       <React.Fragment>
@@ -260,9 +279,9 @@ class Dashboard extends Component {
                     message="Please attempt all questions !!!" />)}
                 <div className={classes.stepContainer}>
                   <div className={classes.bigContainer}>
-                    <StatusStepper props={{
-                      statusSteps: statusArray
-                    }}></StatusStepper>
+                    <HorizontalLinearStepper props={{
+                      steps: stepperAnswerArray
+                    }}></HorizontalLinearStepper>
                   </div>
 
                   <Fade
@@ -277,7 +296,7 @@ class Dashboard extends Component {
 
                   {questions.map((k, v) => {
                     return (
-                      <div className={[classes.bigContainer, 'big' + v].join(' ')} key={v + 1} >
+                      <div className={classes.bigContainer} key={v + 1}>
                         <Paper className={classes.paper}>
                           <div className={classes.topInfo}>
                             <div>
